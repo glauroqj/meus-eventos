@@ -5,7 +5,7 @@ class ListEvents extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: props.data,
+      event: props.event,
       selected: '',
       loading: false
     }
@@ -18,23 +18,21 @@ class ListEvents extends Component {
 
     this.setState({loading: true})
 
-    const selected = await getEvents(code, `/${id}?fields=id,name,start_date,end_date,private_event,published`)
+    const selected = await getEvents(code, {}, `events/${id}/orders`)
     if (selected) {
+      console.log(selected)
+      /* add specifcs informations in selected */
+      selected.title = name
       this.setState({
         loading: false,
         selected
       })
     }
-    // getEvents(code, `/${id}`).then((selected) => {
-    //   this.setState({
-    //     loading: false,
-    //     selected
-    //   })
-    // })
+
   }
 
   render() {
-    const { data, selected, loading } = this.state
+    const { event, selected, loading } = this.state
     return (
       <div className="me-list-events">
         {loading &&
@@ -44,7 +42,7 @@ class ListEvents extends Component {
           <>
           <h4>Lista de Eventos</h4>
           <ul>
-            {data.map((item) => (
+            {event.data.map((item) => (
               <button onClick={this.selectEvent(item)}>
                 <li>Nome: {item.name} - ID: {item.id}</li>
                 <li>Início: {item.start_date} Fim: {item.end_date}</li>
@@ -55,7 +53,10 @@ class ListEvents extends Component {
           </>
         }
         {selected && !loading &&
-          <h2>Show Spefic Event</h2>
+          <>
+          <h2>{selected.title}</h2>
+          <h5><b>Participantes:</b> {selected.data.length}</h5>
+          </>
         }
       </div>
     )

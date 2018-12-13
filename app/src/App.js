@@ -27,12 +27,12 @@ class App extends Component {
       }
 
       /* if exist hash, call the first events */
-      const data = await getEvents(result, '?fields=id,name,start_date,end_date,private_event,published')
-      if (data) {
+      const event = await getEvents(result, {fields: 'id,name,start_date,end_date,private_event,published'}, 'events')
+      if (event) {
         this.setState({
           loading: false,
           code: result,
-          data
+          event
         })
       }
 
@@ -40,8 +40,8 @@ class App extends Component {
   }
 
   render() {
-    const {loading, code, data} = this.state
-    const list = {code, data}
+    const {loading, code, event} = this.state
+    const list = {code, event}
     return (
       <div className="me-body">
         {loading &&

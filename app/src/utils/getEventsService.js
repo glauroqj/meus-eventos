@@ -1,39 +1,49 @@
 const axios = require('axios')
-const {event, specifEvent} = require('../mock/events')
-const url = 'https://api.sympla.com.br/public/v3/events'
+const {event, order, participant} = require('../mock/events')
 
 const oneEvent = 'https://api.sympla.com.br/public/v3/events/{id}'
 const orders = 'https://api.sympla.com.br/public/v3/events/{id}/orders'
 const participants = 'https://api.sympla.com.br/public/v3/events/{id}/participants'
 
 const ENV = (window.location.hostname === 'localhost') ? 'dev' : 'prod'
-
-function getEvents(code, query) {
+/*
+token: hash
+query: {fields: 'id'}
+type: 'events', '{eventID}/orders', '{eventID}/participants'
+*/
+function getEvents(token, query, type) {
   return new Promise((resolve) => {
+    let url = 'https://api.sympla.com.br/public/v3/'
     const headers = {
-      S_TOKEN: code
+      S_TOKEN: token
     }
+    const params = {
+      query
+    }
+    url += type
 
     console.log('NODE_ENV: ', ENV)
+    console.log('URL: ', url)
 
     if (ENV === 'dev') {
       setTimeout(() => {
-        console.log(event.data)
-        if (query === '?fields=id,name,start_date,end_date,private_event,published') resolve(event.data)
-        if (query === '/1?fields=id,name,start_date,end_date,private_event,published') resolve(specifEvent.data)
+        if (type === 'events') resolve(event)
+        if (type === 'events/1/orders') resolve(order)
+        if (type === 'events/1/participants') resolve(participant)
       }, 2000)
       return false
     }
 
-    /* prod */
-    axios.get(`${url+query}`, {headers})
+    // /* prod */
+    axios.get(url, {headers, params})
     .then((response) => {
-      resolve(response.data.data)
-      console.log(response.data.data)
+      resolve(response.data)
+      console.log(response.data)
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error)
     })
+
   })
 }
 
