@@ -31,6 +31,12 @@ class ListEvents extends Component {
 
   }
 
+  back = (e) => {
+    this.setState({
+      selected: ''
+    })
+  }
+
   render() {
     const { event, selected, loading } = this.state
     return (
@@ -56,6 +62,7 @@ class ListEvents extends Component {
           <>
           <h2>{selected.title}</h2>
           <h5><b>Participantes:</b> {selected.data.length}</h5>
+          <button onClick={this.back}>Voltar</button>
           </>
         }
       </div>
