@@ -50,33 +50,31 @@ class Login extends Component {
       <div className="me-login">
         <Grid container spacing={24}>
           <Grid item xs={12}>
-            <Paper>
-              {loading && (
-                <Loading text={'Salvando e Carregando Eventos...'} size={'medium'} />
-              )}
-              {!loading && (
-                <form onSubmit={this.sendHash}>
-                  <FormControl>
-                    <TextField
-                      id="standard-name"
-                      label="Informe seu código"
-                      value={this.state.input}
-                      onChange={this.onChange}
-                      margin="normal"
-                      variant="outlined"
-                    />
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="small"
-                      onClick={this.sendHash}
-                    >
-                      Enviar
-                    </Button>
-                  </FormControl>
-                </form>
-              )}
-            </Paper>
+            {loading && (
+              <Loading text={'Salvando e Carregando Eventos...'} size={'medium'} />
+            )}
+            {!loading && (
+              <form onSubmit={this.sendHash}>
+                <FormControl fullWidth>
+                  <TextField
+                    id="standard-name"
+                    label="Informe seu código"
+                    value={this.state.input}
+                    onChange={this.onChange}
+                    margin="normal"
+                    variant="outlined"
+                  />
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    onClick={this.sendHash}
+                  >
+                    Enviar
+                  </Button>
+                </FormControl>
+              </form>
+            )}
           </Grid>
         </Grid>
       </div>
