@@ -42,6 +42,7 @@ function getEvents(token, query, type) {
     })
     .catch((error) => {
       console.log(error)
+      resolve(error)
     })
 
   })

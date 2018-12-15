@@ -12,17 +12,23 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      loading: true,
+      loading: {
+        status: true,
+        text: 'Carregando...',
+        size: 'large'
+      },
       code: this.initialCode()
     }
   }
 
   initialCode() {
     getHash().then(async (result) => {
+      const { loading } = this.state
       if (!result) {
         /* show template login */
+        loading.status = false
         this.setState({
-          loading: false,
+          loading,
           code: result
         })
         return false
@@ -30,37 +36,56 @@ class App extends Component {
 
       /* if exist hash, call the first events */
       const event = await getEvents(result, {fields: 'id,name,start_date,end_date,private_event,published'}, 'events')
-      if (event) {
+      console.log('RESPONSE EVENT: ', event)
+      if (event.data) {
+        loading.status = false
         this.setState({
-          loading: false,
+          loading,
           code: result,
           event
         })
+      }
+
+      if (!event.data) {
+        localStorage.removeItem('meus-eventos-code')
+        loading.text = 'Tivemos um problema, verifique o código informado'
+        this.setState({ loading })
+
+        setTimeout(() => {
+          loading.status = false
+          this.setState({ loading })
+        }, 2000)
+
       }
 
     })
   }
 
   updateTemplate = () => {
+    const { loading } = this.state
     console.log('UPDATE TEMPLATE')
+    loading.status = true
+    loading.text = 'Verificando e Carregando Eventos...'
+    this.setState({ loading })
+
     this.initialCode()
   }
 
   render() {
-    const {loading, code, event} = this.state
+    const { loading:{status, text, size}, code, event} = this.state
     const login = {
       updateTemplate: this.updateTemplate
     }
     const list = {code, event}
     return (
       <div className="me-body">
-        {loading &&
-          <Loading text={'Carregando...'} size={'large'} />
+        {status &&
+          <Loading text={text} size={size} />
         }
-        {!loading && !code &&
+        {!status && !code &&
           <Login {...login} />
         }
-        {!loading && code &&
+        {!status && code &&
           <ListEvents {...list} />
         }
       </div>

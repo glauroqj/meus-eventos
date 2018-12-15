@@ -14,8 +14,7 @@ class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      input: '',
-      loading: false
+      input: ''
     }
   }
 
@@ -30,12 +29,9 @@ class Login extends Component {
     const { updateTemplate } = this.props
     const { input } = this.state
 
-
     if (!input) {
       return false
     }
-
-    this.setState({ loading: true })
 
     const status = await setHash(input)
     if (status) {
@@ -45,36 +41,30 @@ class Login extends Component {
   }
 
   render() {
-    const { loading } = this.state
     return (
       <div className="me-login">
         <Grid container spacing={24}>
           <Grid item xs={12}>
-            {loading && (
-              <Loading text={'Salvando e Carregando Eventos...'} size={'medium'} />
-            )}
-            {!loading && (
-              <form onSubmit={this.sendHash}>
-                <FormControl fullWidth>
-                  <TextField
-                    id="standard-name"
-                    label="Informe seu código"
-                    value={this.state.input}
-                    onChange={this.onChange}
-                    margin="normal"
-                    variant="outlined"
-                  />
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="small"
-                    onClick={this.sendHash}
-                  >
-                    Enviar
-                  </Button>
-                </FormControl>
-              </form>
-            )}
+            <form onSubmit={this.sendHash}>
+              <FormControl fullWidth>
+                <TextField
+                  id="standard-name"
+                  label="Informe seu código"
+                  value={this.state.input}
+                  onChange={this.onChange}
+                  margin="normal"
+                  variant="outlined"
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  onClick={this.sendHash}
+                >
+                  Enviar
+                </Button>
+              </FormControl>
+            </form>
           </Grid>
         </Grid>
       </div>
