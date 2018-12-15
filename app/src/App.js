@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import Loading from './components/Loading'
+
 import { getHash } from './utils/localStorageInfo'
 import { getEvents } from './utils/getEventsService'
 /*pages */
@@ -39,16 +41,24 @@ class App extends Component {
     })
   }
 
+  updateTemplate = () => {
+    console.log('UPDATE TEMPLATE')
+    this.initialCode()
+  }
+
   render() {
     const {loading, code, event} = this.state
+    const login = {
+      updateTemplate: this.updateTemplate
+    }
     const list = {code, event}
     return (
       <div className="me-body">
         {loading &&
-          <h4>Carregando...</h4>
+          <Loading text={'Carregando...'} size={'large'} />
         }
         {!loading && !code &&
-          <Login />
+          <Login {...login} />
         }
         {!loading && code &&
           <ListEvents {...list} />
