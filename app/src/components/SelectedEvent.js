@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 
-import Loading from '../components/Loading'
-import SelectedEvent from '../components/SelectedEvent'
-import ListEventItem from '../components/ListEventItem'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+
+import Loading from './Loading'
+
 import { getEvents } from '../utils/getEventsService'
 
-class ListEvents extends Component {
+class SelectedEvent extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -49,27 +53,21 @@ class ListEvents extends Component {
 
   render() {
     const { event, selected, loading:{status, text, size} } = this.state
-    const listEventItem = {
-      event,
-      selectEvent: this.selectEvent
-    }
-    const selectedEvent = {
-      selected
-    } 
     return (
       <div className="me-list-events">
         {status &&
           <Loading text={text} size={size} />
         }
-        {!selected && !status &&
-          <ListEventItem {...listEventItem} />
-        }
         {selected && !status &&
-          <SelectedEvent {...selectedEvent} />
+          <>
+          <h2>{selected.title}</h2>
+          <h5><b>Participantes:</b> {selected.data.length}</h5>
+          <button onClick={this.back}>Voltar</button>
+          </>
         }
       </div>
     )
   }
 }
 
-export default ListEvents
+export default SelectedEvent

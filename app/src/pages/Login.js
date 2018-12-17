@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
-import { setHash } from '../utils/localStorageInfo'
 
-import Loading from '../components/Loading'
-import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import FormControl from '@material-ui/core/FormControl'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
+import { setHash } from '../utils/localStorageInfo'
 import '../assets/css/login.css'
 
 class Login extends Component {
