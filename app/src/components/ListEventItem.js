@@ -33,8 +33,8 @@ const ListEventItem = props => (
     </List>
   </>
 )
-// ListEventItem.prototypes = {
-//   text: PropTypes.string.isRequired,
-//   size: PropTypes.string.isRequired
-// }
+ListEventItem.prototypes = {
+  event: PropTypes.object.isRequired,
+  selectEvent: PropTypes.func.isRequired
+}
 export default ListEventItem

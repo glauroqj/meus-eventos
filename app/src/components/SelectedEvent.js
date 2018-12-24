@@ -1,73 +1,35 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 
-import Loading from './Loading'
-
-import { getEvents } from '../utils/getEventsService'
-
-class SelectedEvent extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      event: props.event,
-      selected: '',
-      loading: {
-        status: false,
-        text: 'Carregando evento...',
-        size: 'large'
-      }
-    }
-  }
-
-  selectEvent = (value) => async (e) => {
-    const {code} = this.props
-    const { loading } = this.state
-    const {id, name} = value
-    console.log('selected: ', id, name, value)
-    loading.status = true
-    this.setState({loading})
-
-    const selected = await getEvents(code, {}, `events/${id}/orders`)
-    if (selected) {
-      console.log(selected)
-      /* add specifcs informations in selected */
-      selected.title = name
-      loading.status = false
-      this.setState({
-        loading,
-        selected
-      })
-    }
-
-  }
-
-  back = (e) => {
-    this.setState({
-      selected: ''
-    })
-  }
-
-  render() {
-    const { event, selected, loading:{status, text, size} } = this.state
-    return (
-      <div className="me-list-events">
-        {status &&
-          <Loading text={text} size={size} />
-        }
-        {selected && !status &&
-          <>
-          <h2>{selected.title}</h2>
-          <h5><b>Participantes:</b> {selected.data.length}</h5>
-          <button onClick={this.back}>Voltar</button>
-          </>
-        }
-      </div>
-    )
-  }
+const SelectedEvent = props => (
+  <>
+    <Typography variant="h5" align="center" gutterBottom>
+      {props.selected.title}
+    </Typography>
+    <List className="list-event-item">
+      <ListItem dense>
+        <ul>
+          <li>
+            <ListItemText primary={`Participantes: ${props.selected.data.length}`} />
+          </li>
+          <li>
+            <Button variant="contained" color="secondary" onClick={props.back}>
+              Voltar
+            </Button>
+          </li>
+        </ul>
+      </ListItem>
+    </List>
+  </>
+)
+SelectedEvent.prototypes = {
+  selected: PropTypes.object.isRequired,
+  back: PropTypes.func.isRequired
 }
-
 export default SelectedEvent

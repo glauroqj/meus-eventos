@@ -56,7 +56,8 @@ class ListEvents extends Component {
       selectEvent: this.selectEvent
     }
     const selectedEvent = {
-      selected
+      selected,
+      back: this.back
     } 
     return (
       <div className="me-list-events">
