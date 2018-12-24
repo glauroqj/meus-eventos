@@ -5,6 +5,8 @@ import SelectedEvent from '../components/SelectedEvent'
 import ListEventItem from '../components/ListEventItem'
 import { getEvents } from '../utils/getEventsService'
 
+import '../assets/css/list-events.css'
+
 class ListEvents extends Component {
   constructor(props) {
     super(props)

@@ -1,0 +1,21 @@
+.me-list-events {
+  -webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+  width: 100%;
+  min-width: 300px;
+}
+
+.list-event-item {
+  width: 100%;
+}
+.list-event-item ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+.list-event-item ul li {
+
+}
