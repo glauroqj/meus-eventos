@@ -16,7 +16,7 @@ const SelectedEvent = props => (
       <ListItem dense>
         <ul>
           <li>
-            <ListItemText primary={`Participantes: ${props.selected.data.length}`} />
+            <ListItemText primary={`Pedidos: ${props.selected.pagination.quantity}`} />
           </li>
           <li>
             <Button variant="contained" color="secondary" onClick={props.back}>

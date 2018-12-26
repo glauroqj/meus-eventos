@@ -1,9 +1,9 @@
 const axios = require('axios')
 const {event, order, participant} = require('../mock/events')
 
-const oneEvent = 'https://api.sympla.com.br/public/v3/events/{id}'
-const orders = 'https://api.sympla.com.br/public/v3/events/{id}/orders'
-const participants = 'https://api.sympla.com.br/public/v3/events/{id}/participants'
+// const oneEvent = 'https://api.sympla.com.br/public/v3/events/{id}'
+// const orders = 'https://api.sympla.com.br/public/v3/events/{id}/orders'
+// const participants = 'https://api.sympla.com.br/public/v3/events/{id}/participants'
 
 const ENV = (window.location.hostname === 'localhost') ? 'dev' : 'prod'
 /*

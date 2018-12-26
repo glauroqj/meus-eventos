@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {format} from 'date-fns'
 
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -22,7 +23,7 @@ const ListEventItem = props => (
                 <ListItemText secondary={`ID: ${item.id}`} />
               </li>
               <li>
-                <ListItemText secondary={`Início: ${item.start_date} Término: ${item.end_date}`} />
+                <ListItemText secondary={`Início: ${format(item.start_date, 'DD/MM/YYYY HH:mm')} - Término: ${format(item.end_date, 'DD/MM/YYYY HH:mm')}`} />
               </li>
               <li>
                 <ListItemText secondary={`Status: ${item.divrivate_event ? 'Privado' : 'Público'} - ${item.published ? 'Exibido na plataforma' : 'Rascunho'}`} />
